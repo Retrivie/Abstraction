@@ -1,71 +1,59 @@
-﻿using System;
+using System;
 
-namespace Printer_II
+namespace Abstraction
 {
-    public interface PrinterWindows
+    abstract class Shape
     {
-        void Show();
-        void Print();
+        public abstract double area();
     }
-
-    public class Epson : PrinterWindows
+    class Lingkaran : Shape
     {
-        public void Show()
+        private double radius;
+        public Lingkaran(double r)
         {
-            Console.WriteLine("Epson display dimension : 10*11");
+            radius = r;
         }
-        public void Print()
+        public override double area()
         {
-            Console.WriteLine("Epson printer printing....");
-        }
-    }
-    public class Canon : PrinterWindows
-    {
-        public void Show()
-        {
-            Console.WriteLine("Canon display dimension : 9.5*12");
-        }
-        public void Print()
-        {
-            Console.WriteLine("Canon printer printing....");
+            return (3.14 * radius * radius);
         }
     }
-    public class LaserJet : PrinterWindows
+    class Kotak : Shape
     {
-        public void Show()
+        private double sisi;
+        public Kotak(double s)
         {
-            Console.WriteLine("LaserJet display dimension : 12*12");
+            sisi = s;
         }
-        public void Print()
+        public override double area()
         {
-            Console.WriteLine("LaserJet printer printing....");
+            return (sisi * sisi);
+        }
+    }
+    class Segitiga : Shape
+    {
+        private double alas;
+        private double tinggi;
+        public Segitiga(double a, double t)
+        {
+            alas = a;
+            tinggi = t;
+        }
+        public override double area()
+        {
+            return (0.5 * alas * tinggi);
         }
     }
     class Program
     {
         static void Main(string[] args)
         {
-            PrinterWindows printer;
-
-            Console.WriteLine("Pilih Printer:");
-            Console.WriteLine("1. Epson");
-            Console.WriteLine("2. Canon");
-            Console.WriteLine("3. LaserJet\n");
-
-            Console.Write("Nomor Printer [1..3]: ");
-            int nomorPrinter = Convert.ToInt32(Console.ReadLine());
-
-            if (nomorPrinter == 1)
-                printer = new Epson();
-            else if (nomorPrinter == 2)
-                printer = new Canon();
-            else
-                printer = new LaserJet();
-
-            printer.Show();
-            printer.Print();
-
-            Console.ReadKey();
+            Lingkaran L = new Lingkaran(5.0);
+            Console.WriteLine("Luas Lingkaran \t= {0}", L.area());
+            Kotak K = new Kotak(12.0);
+            Console.WriteLine("Luas Persegi \t= {0}", K.area());
+            Segitiga S = new Segitiga(12.0, 5.0);
+            Console.WriteLine("Luas Segitiga \t= {0}", S.area());
         }
     }
 }
